@@ -1,0 +1,818 @@
+#
+# Copyright 2017 Global Crop Diversity Trust
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+swagger:                            '2.0'
+info:
+  description:                      >-
+    Genesys API client to the Global Information System (GLIS) for PGRFA  [https://glis.planttreaty.org](https://glis.planttreaty.org).
+  version:                          1.0.0
+  title:                            Global Information System API Client
+  termsOfService:                   'https://glis.planttreaty.org/terms/'
+  contact:
+    name:                           Genesys PGR
+    url:                            https://www.genesys-pgr.org
+    email:                          helpdesk@genesys-pgr.org
+  license:
+    name:                           Apache 2.0
+    url:                            'http://www.apache.org/licenses/LICENSE-2.0.html'
+host:                               glistest.planttreaty.org
+schemes:
+  - https
+security:
+  - {}
+  - easySmta:                       []
+parameters:
+  page:
+    name:                           page
+    in:                             query
+    description:                    Request a particular page
+    type:                           integer
+    required:                       false
+    default:                        1
+  perPage:
+    name:                           per-page
+    in:                             query
+    description:                    The number of items returned in a single page
+    type:                           integer
+    required:                       false
+    default:                        10
+tags:
+  - name:                           query
+    description:                    GLIS Query API about PGRFA
+    externalDocs:
+      description:                  Find out more
+      url:                          'https://glis.planttreaty.org'
+paths:
+  /glisapi/v1/pgrfas:
+    get:
+      tags:
+        - query
+      summary:                      Find passport data on PGRFA in GLIS
+      description:                  ''
+      operationId:                  search
+      produces:
+        - application/json
+        - application/xml
+        - application/brapi
+        - application/zip
+        - application/ld+json
+      parameters:
+        - $ref:                     '#/parameters/page'
+        - $ref:                     '#/parameters/perPage'
+        - name:                     doi
+          in:                       query
+          description:              >-
+            Digital Object Identifier (DOI) associated to the PGRFA
+          required:                 false
+          type:                     string
+        - name:                     identifier
+          in:                       query
+          description:              >-
+            Any identifier associated with the PGRFA, excluding the DOI
+          required:                 false
+          type:                     string
+        - name:                     genus
+          in:                       query
+          description:              >-
+            Genus of the PGRFA
+          required:                 false
+          type:                     string
+        - name:                     species
+          in:                       query
+          description:              >-
+            Species and other taxonomic elements
+          required:                 false
+          type:                     string
+        - name:                     name
+          in:                       query
+          description:              >-
+            Any name associated with the PGRFA
+          required:                 false
+          type:                     string
+        - name:                     holdwiews
+          in:                       query
+          description:              >-
+            FAO/WIEWS Institute code of the holding institution
+          required:                 false
+          type:                     string
+        - name:                     holdpid
+          in:                       query
+          description:              >-
+            Easy-SMTA PID of the holding institution or person
+          required:                 false
+          type:                     string
+        - name:                     holdname
+          in:                       query
+          description:              >-
+            Name and surname for persons or Organization name of the holding institution or person
+          required:                 false
+          type:                     string
+        - name:                     holdcountry
+          in:                       query
+          description:              >-
+            ISO-3166 alpha-3 country code (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) of the holding institution or person
+          required:                 false
+          type:                     string
+        - name:                     methodcode
+          in:                       query
+          description:              >-
+            Code of the method through which the PGRFA has been acquired. See Table 1 for the codes accepted by this element. TODO enum
+          required:                 false
+          type:                     string
+        - name:                     provwiews
+          in:                       query
+          description:              >-
+            FAO/WIEWS Institute code of the providing institution
+          required:                 false
+          type:                     string
+        - name:                     provpid
+          in:                       query
+          description:              >-
+            Easy-SMTA PID of the providing institution or person
+          required:                 false
+          type:                     string
+        - name:                     provname
+          in:                       query
+          description:              >-
+            Name and surname for persons or Organization name of the providing institution
+          required:                 false
+          type:                     string
+        - name:                     provcountry
+          in:                       query
+          description:              >-
+            ISO-3166 alpha-3 country code (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) of the providing institution or person
+          required:                 false
+          type:                     string
+        - name:                     provenance
+          in:                       query
+          description:              >-
+            ISO-3166 alpha-3 country code (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) of the providing institution or person
+          required:                 false
+          type:                     string
+        - name:                     collwiews
+          in:                       query
+          description:              >-
+            FAO/WIEWS Institute code of the collecting institution
+          required:                 false
+          type:                     string
+        - name:                     collpid
+          in:                       query
+          description:              >-
+            Easy-SMTA PID of the collecting institution or person
+          required:                 false
+          type:                     string
+        - name:                     collname
+          in:                       query
+          description:              >-
+            Name and surname for persons or Organization name of the collecting institution or person
+          required:                 false
+          type:                     string
+        - name:                     collcountry
+          in:                       query
+          description:              >-
+            ISO-3166 alpha-3 country code (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) of the collecting institution or person
+          required:                 false
+          type:                     string
+        - name:                     bredwiews
+          in:                       query
+          description:              >-
+            FAO/WIEWS Institute code of the breeding institution
+          required:                 false
+          type:                     string
+        - name:                     bredpid
+          in:                       query
+          description:              >-
+            Easy-SMTA PID of the breeding institution or person
+          required:                 false
+          type:                     string
+        - name:                     bredname
+          in:                       query
+          description:              >-
+            Name and surname for persons or Organization name of the breeding institution or person
+          required:                 false
+          type:                     string
+        - name:                     bredcountry
+          in:                       query
+          description:              >-
+            ISO-3166 alpha-3 country code (https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3) of the breeding institution or person
+          required:                 false
+          type:                     string
+        - name:                     biostatus
+          in:                       query
+          description:              >-
+            Code of the biological status of sample (MCPD SAMPSTAT).
+          required:                 false
+          type:                     string
+        - name:                     mlsstatus
+          in:                       query
+          description:              >-
+            Code for the inclusion into the Multilateral System.
+          required:                 false
+          type:                     string
+        - name:                     targetkw
+          in:                       query
+          description:              >-
+            Code for the keyword for a target associated to the PGRFA. To obtain the list of keyword codes, please see "Controlled vocabulary query".
+          required:                 false
+          type:                     string
+
+      responses:
+        '200':
+          description:              Successful operation
+          schema:
+            type:                   array
+            items:
+              $ref:                 '#/definitions/PGRFA'
+          examples:
+            application-json:       >-
+              [{
+                 "doi":             "10.0155/151D",
+                 "url":             "https://52.70.89.68/glis/entity/doi-search?doi=10.0155/151D",
+                 "user":            {
+                   "name":          "CGN",
+                   "wiews":         null,
+                   "pid":           "00AC55",
+                   "address":       null,
+                   "country":       "NLD"
+                 },
+                 "info":            {
+                   "modified":      "2017-06-21T09:06:36+01:00"
+                 },
+                 "M01":             {
+                   "name":          "International Rice Research Institute",
+                   "wiews":         "PHL001",
+                   "pid":           null,
+                   "address":       "DAPO BOX 7777\n1099 Metro Manila",
+                   "country":       "PHL"
+                 },
+                 "M02":             "IRGC 125879",
+                 "M03":             "2010-05",
+                 "M04":             {
+                   "code":          "acqu",
+                   "desc":          "Acquisition"
+                 },
+                 "M05":             {
+                   "genus":         "Oryza",
+                   "names":         ["PUTTIGE::IRGC 52588-1"]
+                 },
+                 "R01":             [{
+                   "url":           "http://oryzasnp.org/iric-portal/_variety.zul?irisid=IRIS%20313-8921",
+                   "kws":           ["5"]
+                 }, {
+                   "url":           "https://www.genesys-pgr.org/acn/id/4332625",
+                   "kws":           ["6"]
+                 }],
+                 "R03":             null,
+                 "R04":             {
+                   "species":       "sativa",
+                   "spauth":        "L.",
+                   "subtaxa":       null,
+                   "stauth":        null
+                 },
+                 "R05":             ["T1528/2009", "IRGC 125879"],
+                 "R06":             [],
+                 "R07":             {
+                   "code":          "12",
+                   "desc":          "Art. 15 collection"
+                 },
+                 "R08":             true,
+                 "A01":             {
+                   "name":          null,
+                   "wiews":         null,
+                   "pid":           null,
+                   "address":       null,
+                   "country":       null
+                 },
+                 "A02":             null,
+                 "A03":             "PHL",
+                 "A04":             [],
+                 "A05":             null,
+                 "A06":             null,
+                 "A07":             null,
+                 "A08":             null,
+                 "A09":             null,
+                 "A10":             null,
+                 "A11":             null,
+                 "A12":             null,
+                 "A13":             "0",
+                 "A14":             null,
+                 "A15":             null,
+                 "A16":             [],
+                 "A17":             null
+               }]
+          headers:
+            X-Rate-Limit-Limit:
+              type:                 integer
+              description:          >-
+                The maximum number of requests allowed for your IP for each time window.
+            X-Rate-Limit-Remaining:
+              type:                 integer
+              description:          >-
+                The number of requests that you can still make during the current time window.
+            X-Rate-Limit-Reset:
+              type:                 integer
+              description:          >-
+                The number of seconds to wait until the number of available requests is restored.
+        '404':
+          description:              PGRFA not found
+        '429':
+          description:              Too Many Requests
+          schema:
+            $ref:                   '#/definitions/RateLimitError'
+
+  /glisapi/v1/rels:
+    get:
+      tags:
+        - query
+      summary:                      Get PGRFA relationships
+      description:                  >-
+        Multiple status values can be provided with comma separated strings
+      operationId:                  listRelationships
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name:                     doi
+          in:                       query
+          description:              >-
+            Digital Object Identifier (DOI) associated to the PGRFA for which relations are requested. Mandatory
+          required:                 true
+          type:                     string
+        - name:                     role
+          in:                       query
+          description:              >-
+            Role of doi in the relationships. Optional, defaults to 'any'.
+
+            Role in the relationship
+            * any - Any role, default.
+            * subject - DOI provided is the subject in the relationship.
+            * object - DOI provided is the object in the relationship.
+          required:                 false
+          type:                     string
+          items:
+            type:                   string
+            enum:
+              - any
+              - subject
+              - object
+            default:                any
+        - name:                     oper
+          in:                       query
+          description:              >-
+            Relational operator code to filter the relations. Optional; if specified, only the relations with the given operator will be returned.
+
+            Relational code
+            * acfr - Acquired from. The PGRFA was received from a Provider. The related DOI identifies the Provider's sample
+            * crfr - Created from. The PGRFA was obtained through crossing parent PGRFAs. The related DOIs identify the parent samples
+            * defr - Derived from. The PGRFA was obtained from another sample. The related DOI identifies such original sample
+          required:                 false
+          type:                     string
+          items:
+            type:                   string
+            enum:
+              - acfr
+              - crfr
+              - defr
+      responses:
+        '200':
+          description:              successful operation
+          schema:
+            type:                   array
+            items:
+              $ref:                 '#/definitions/Relationship'
+          examples:
+            application-json:       >-
+              [{
+                "subject":          "10.0155/1",
+                "oper":             "crfr",
+                "object":           "10.0155/3"
+              }, {
+                "subject":          "10.0155/1",
+                "oper":             "crfr",
+                "object":           "10.0155/2"
+              }]
+        '400':
+          description:              Invalid status value
+
+  /glisapi/v1/terms:
+    get:
+      tags:
+        - query
+      summary:                      GLIS vocabularies
+      description:                  >-
+        To describe the kind of information that will be found in the targets, GLIS adopts a simple controlled vocabulary.
+      operationId:                  listTerms
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - name:                     Accept-Language
+          in:                       header
+          description:              Tags to filter by
+          required:                 false
+          type:                     array
+          items:
+            type:                   string
+            enum:
+              - en
+              - fr
+              - es
+              - ar
+              - ru
+              - zh
+          default:                  en
+      responses:
+        '200':
+          description:              successful operation
+          schema:
+            type:                   array
+            items:
+              $ref:                 '#/definitions/Term'
+          examples:
+            application-json:       >-
+              [{
+              	"subject":           "10.0155/1",
+              	"oper":              "crfr",
+              	"object":            "10.0155/3"
+              }, {
+              	"subject":           "10.0155/1",
+              	"oper":              "crfr",
+              	"object":            "10.0155/2"
+              }]
+
+securityDefinitions:
+  easySmta:
+    type:                           basic
+    description:                    >-
+      HTTP Basic authentication using Easy-SMTA login
+
+definitions:
+  Term:
+    type:                           object
+    properties:
+      code:
+        type:                       string
+        description:                Unique term code
+      language:
+        type:                       string
+        description:                >-
+          ISO-639-1 two-letter language code
+        enum:
+          - en
+          - fr
+          - es
+          - ar
+          - ru
+          - zh
+      term:
+        type:                       string
+        description:                Term
+  Relationship:
+    type:                           object
+    properties:
+      subject:
+        type:                       string
+        description:                >-
+          The DOI of the PGRFA subject that was provided as search value
+      oper:
+        type:                       string
+        description:                >-
+          The DOI of the PGRFA subject that was provided as search value
+      object:
+        type:                       string
+        description:                >-
+          The DOI of the PGRFA related to subject through oper
+  PGRFA:
+    type:                           object
+    required:
+      - doi
+    properties:
+      doi:
+        type:                       string
+        pattern:                    '^10\.[0-9]+/.+$'
+        example:                    '10.0155/1'
+        title:                      DOI associated with PGRFA
+        description:                >-
+          Digital Object Identifier (DOI) associated to the PGRFA
+      url:
+        type:                       string
+        pattern:                    '^https?://.+$'
+        description:                >-
+          GLIS landing page for the PGRFA
+      user:
+        title:                      GLIS registrant
+        description:                >-
+          GLIS user account who registered the PGRFA
+        $ref:                       '#/definitions/Location'
+      M01:
+        title:                      Organization/individual conserving the PGRFA
+        description:                >-
+          The organization, individual or legal entity conserving the PGRFA
+        $ref:                       '#/definitions/Location'
+      M02:
+        title:                      Local unique identifier of PGRFA
+        description:                >-
+          The identifier that is used to identify the PGRFA material to distinguish it from other PGRFA conserved by the holder. Precisely one identifier is specified for the material.
+        type:                       string
+      M03:
+        title:                      Acquisition date
+        description:                >-
+          Date on which PGRFA came into management of the holder of the PGRFA. Date fragments are also accepted, e.g. when only year or year and month are defined.
+        type:                       string
+        pattern:                    '^\d{4}(\-\d{1,2}){0,2}'
+      M04:
+        title:                      Method
+        description:                >-
+          Considering the date given for the previous field (Date), what event occurred on that date that resulted in the holder becoming the PGRFA holder.
+        $ref:                       '#/definitions/TermValue'
+      M05:
+        title:                      Genus or crop name
+        $ref:                       '#/definitions/Names'
+      R01:
+        title:                      Targets
+        description:                >-
+          The URLs of websites where additional information on the PGRFA can be found. Each target is associated to one or more controlled vocabulary term code.
+        type:                       array
+        items:
+          $ref:                     '#/definitions/Target'
+      R03:
+        title:                      Biological status
+        description:                >-
+          Describes the conditions of provenance of the PGRFA. MCPD equivalent is Biological status of accession [SAMPSTAT].
+        $ref:                       '#/definitions/TermValue'
+      R04:
+        title:                      Additional taxonomic category
+        description:                >-
+          Species:                  Specific epithet of the scientific name
+          Species authority:        Authority for the specific epithet
+          Subtaxa: Any additional infra-specific taxon: subspecies, variety, form, Group
+          Subtaxon authority:       Authority for the subtaxon
+        $ref:                       '#/definitions/Species'
+      R05:
+        title:                      Names
+        description:                >-
+          Registered names or other designations, such as the name of a landrace, traditional variety or modern cultivar, or some other name or designation used to identify a breeder’s selection or elite line or variety.
+        type:                       array
+        items:
+          type:                     string
+      R06:
+        title:                      Other identifiers
+        description:                >-
+          Any other identifiers that have been assigned to identify the PGRFA material.
+        type:                       array
+        items:
+          $ref:                     '#/definitions/OtherIdentifier'
+      R07:
+        title:                      MLS status
+        description:                >-
+          The status of the PGRFA with regard to the Multilateral System of Access and Benefit-Sharing (MLS) of the International Treaty on Plant Genetic Resources for Food and Agriculture.
+
+          * 0 Not available under the MLS
+          * 1 Available under the MLS
+          * 11 The sample is of a crop listed in Annex I and is under the management and control of a Contracting Party to the Treaty and declared to be in the public domain
+          * 12 The sample is in a collection subject to an agreement concluded under Article 15 of the Treaty
+          * 13 The holder received the sample with SMTA
+          * 14 The holder has voluntarily placed the sample in the MLS
+          * 15 The sample is derived from, and distinct from, material previously received from the MLS, is still under development and not yet ready for commercialization, and may be made available at the discretion of the developer
+        $ref:                       '#/definitions/TermValue'
+      R08:
+        title:                      Physical existence
+        description:                >-
+          Describes whether the PGRFA is still available or permanently lost after being registered.
+        type:                       boolean
+      A01:
+        title:                      Provider's location
+        description:                >-
+          Location or name of the person or organization that provided the PGRFA to the holder.
+        $ref:                       '#/definitions/Location'
+      A02:
+        title:                      Provider's sample unique identifier
+        description:                >-
+          Unique identifier used by the provider to identify the PGRFA under the provider’s management.
+        type:                       string
+      A03:
+        title:                      Country of provenance
+        description:                >-
+          ISO-3166 apha-3 code of country in which the PGRFA material was either collected or bred or selected, or the first country in the known history of the PGRFA.
+        type:                       string
+        pattern:                    '^.{3}$'
+      A04:
+        title:                      Collector's location
+        description:                >-
+          Location of the home base of the person(s) or organization(s) that originally collected the PGRFA from in situ conditions.
+        type:                       array
+        items:
+          $ref:                     '#/definitions/Location'
+      A05:
+        title:                      Collector's sample unique identifier
+        description:                >-
+          Identifier assigned by the collector(s) to the PGRFA collected. MCPD equivalent is Collecting number [COLLNUMB].
+        type:                       string
+      A06:
+        title:                      Collecting mission identifier
+        description:                >-
+          The identifier, if any, of the mission during which the PGRFA was collected.
+        type:                       string
+      A07:
+        title:                      Location where sample was collected
+        description:                >-
+          Location information below the country level that describes where the PGRFA was collected.
+        type:                       string
+      A08:
+        title:                      Latitude
+        description:                >-
+          Latitude of the location where the PGRFA was collected in decimal degrees.
+        type:                       number
+      A09:
+        title:                      Longitude
+        description:                >-
+          Longitude of the location where the PGRFA was collected in decimal degrees.
+        type:                       number
+      A10:
+        title:                      Uncertainty
+        description:                >-
+          Uncertainty of the latitude/longitude coordinates of the location where the PGRFA was collected.
+        type:                       string
+      A11:
+        title:                      Geodetic datum
+        description:                >-
+          The geodetic datum or spatial reference system upon which the latitude/longitude coordinates of the collecting location are based.
+        $ref:                       '#/definitions/TermValue'
+      A12:
+        title:                      Georeferencing method
+        description:                >-
+          The method used to estimate latitude/longitude coordinates of the location where the PGRFA was collected.
+        $ref:                       '#/definitions/TermValue'
+      A13:
+        title:                      Elevation
+        description:                >-
+          Elevation of collecting site.
+        type:                       number
+      A14:
+        title:                      Collecting date
+        type:                       string
+        description:                >-
+          Date on which the PGRFA was collected. Partial dates are allowed (YYYY-MM?-DD?).
+        pattern:                    '^\d{4}(\-\d{1,2}){0,2}'
+      A15:
+        title:                      Collecting source
+        description:                >-
+          A description of the nature of the location where the PGRFA was collected.
+        $ref:                       '#/definitions/TermValue'
+      A16:
+        title:                      Breeder's location
+        description:                >-
+          Location where the material was bred.
+        type:                       array
+        items:
+          $ref:                     '#/definitions/Location'
+      A17:
+        title:                      Ancestry
+        description:                >-
+          The pedigree (genealogy) or other description of the ancestry of the PGRFA and how it was bred.
+        type:                       string
+
+      # Moreover, an info element is also added containing the following elements:
+      info:
+        type:                       object
+        $ref:                       '#/definitions/UpdateInformation'
+
+  Actor:
+    type:                           object
+    properties:
+      wiews:
+        type:                       string
+        title:                      FAO/WIEWS Institute code
+        pattern:                    '^[A-Z]{3}[0-9]{3,4}$'
+        example:                    'NLD037'
+      pid:
+        type:                       string
+        title:                      Easy-SMTA PID
+        example:                    '1337'
+      name:
+        type:                       string
+        title:                      Name
+        example:                    'Centre for Genetic Resources, Wageningen University and Research Centre'
+      address:
+        type:                       string
+        title:                      Address
+        example:                    '6700 AA Wageningen, The Netherlands'
+      country:
+        type:                       string
+        title:                      ISO3 Country code
+        description:                >-
+          ISO-3166 apha-3 country code
+        pattern:                    '^.{3}$'
+        example:                    'NLD'
+
+  Location:
+    type:                           object
+    description:                    >-
+      The location element is the same as the actor element with the addition of geographical coordinates: latitude and longitude.
+    allOf:
+      - $ref:                       '#/definitions/Actor'
+    properties:
+      lat:
+        type:                       number
+        title:                      Latitude in decimal degrees
+      lon:
+        type:                       number
+        title:                      Longitude in decimal degrees
+  Target:
+    type:                           object
+    properties:
+      url:
+        type:                       string
+      kws:
+        type:                       array
+        items:
+          type:                     string
+  Names:
+    type:                           object
+    properties:
+      genus:
+        type:                       string
+      names:
+        type:                       array
+        items:
+          type:                     string
+  OtherIdentifier:
+    type:                           object
+    description:                    >-
+      Other identifier of material
+    properties:
+      type:
+        title:                      Identifier type
+        description:                >-
+          One of 'genesysid', 'accnum', etc.
+        type:                       string
+      value:
+        title:                      The identifier used in the other system
+        type:                       string
+  TermValue:
+    type:                           object
+    properties:
+      code:
+        type:                       string
+      desc:
+        type:                       string
+  Species:
+    type:                           object
+    properties:
+      species:
+        type:                       string
+      spauth:
+        type:                       string
+      subtaxa:
+        type:                       string
+      stauth:
+        type:                       string
+  UpdateInformation:
+    type:                           object
+    properties:
+      modified:
+        type:                       string
+        format:                     date-time
+      doiregistered:
+        description:                >-
+          The date of DOI registration to the DataCite registry. If this element is missing or null, the DOI has not been registered yet and should therefore not be used in publications
+        type:                       string
+        format:                     date-time
+  ApiError:
+    type:                           object
+    properties:
+      error:
+        type:                       string
+        description:                >-
+          If an error is found the response is an object with the only field error describing the problem.
+  RateLimitError:
+    type:                           object
+    properties:
+      name:
+        type:                       string
+      message:
+        type:                       string
+      code:
+        type:                       integer
+        format:                     int32
+      status:
+        type:                       integer
+        format:                     int32
+      type:
+        type:                       string
+externalDocs:
+  description:                      GLIS API documentation
+  url:                              'https://glis.planttreaty.org/assets/'
